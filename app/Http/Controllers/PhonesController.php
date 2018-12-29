@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Phone;
+use App\Phones;
 
 class PhonesController extends Controller
 {
@@ -14,8 +14,12 @@ class PhonesController extends Controller
      */
     public function index()
     {
-        $phones = Phone::all();
-        return view('phones.index')->with('phone', $phones);
+        // Order by name.
+        //$phones = Phones::orderBy('name', 'asc')->get();
+
+        $phones = Phones::all();
+        return view('phones.index')->with('phones', $phones);
+
     }
 
     /**
@@ -47,7 +51,8 @@ class PhonesController extends Controller
      */
     public function show($id)
     {
-        //
+        $phone = Phones::find($id);
+        return view('phones.show')->with('phone', $phone);
     }
 
     /**
