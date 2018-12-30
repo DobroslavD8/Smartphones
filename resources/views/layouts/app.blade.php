@@ -15,7 +15,14 @@
         <title>{{config('app.name', 'Smartphones')}}</title>
     </head>
     <body>
+    <div class="container">
     @include('nav.nav')
+        @include('nav.msg')
         @yield('content')
+    </div>
+        <script src="/vendor/unisharp/laravel-ckeditor/ckeditor.js"></script>
+        <script>
+                CKEDITOR.replace( 'article-ckeditor' );
+        </script>
     </body>
 </html>

@@ -29,7 +29,7 @@ class PhonesController extends Controller
      */
     public function create()
     {
-        //
+        return view('phones.create');
     }
 
     /**
@@ -40,7 +40,21 @@ class PhonesController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate($request, [
+           'name' => 'required',
+           'model' => 'required',
+           'manufacturer' => 'required',
+        ]);
+
+        $phone = new Phones;
+        $phone->name = $request->input('name');
+        $phone->model = $request->input('model');
+        $phone->manufacturer = $request->input('manufacturer');
+        $phone->productionYear = $request->input('productionYear');
+        $phone->save();
+
+        return redirect('/phones')->with('success', 'Phone added!');
+
     }
 
     /**
@@ -63,7 +77,8 @@ class PhonesController extends Controller
      */
     public function edit($id)
     {
-        //
+        $phone = Phones::find($id);
+        return view('phones.edit')->with('phone', $phone);
     }
 
     /**
@@ -75,7 +90,20 @@ class PhonesController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $this->validate($request, [
+            'name' => 'required',
+            'model' => 'required',
+            'manufacturer' => 'required',
+        ]);
+
+        $phone = Phones::find($id);
+        $phone->name = $request->input('name');
+        $phone->model = $request->input('model');
+        $phone->manufacturer = $request->input('manufacturer');
+        $phone->productionYear = $request->input('productionYear');
+        $phone->save();
+
+        return redirect('/phones')->with('success', 'Phone updated!');
     }
 
     /**
@@ -86,6 +114,9 @@ class PhonesController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $phone = Phones::find($id);
+        $phone->delete();
+
+        return redirect('/phones')->with('success', 'Phone deleted!');
     }
 }
