@@ -16,3 +16,8 @@ Route::get('/', function () {
 });
 
 Route::resource('phones', 'PhonesController');
+
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');

@@ -1,28 +1,32 @@
-<?php
-/**
- * Created by PhpStorm.
- * User: Limitless
- * Date: 23.12.2018 г.
- * Time: 18:48
- */
-?>
+<!DOCTYPE html>
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-<!doctype html>
-<html lang="{{ config('app.locale') }}">
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>{{config('app.name', 'Smartphones')}}</title>
-    </head>
-    <body>
-    <div class="container">
-    @include('nav.nav')
-        @include('nav.msg')
-        @yield('content')
+    <!-- CSRF Token -->
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+
+    <title>{{ config('app.name', 'Laravel') }}</title>
+
+    <!-- Scripts -->
+    <script src="{{ asset('js/app.js') }}" defer></script>
+
+    <!-- Fonts -->
+    <link rel="dns-prefetch" href="//fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet" type="text/css">
+
+    <!-- Styles -->
+    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+</head>
+<body>
+    <div id="app">
+
+        @include('nav.nav')
+        <div class="container">
+            @include('nav.msg')
+            @yield('content')
+        </div>
     </div>
-        <script src="/vendor/unisharp/laravel-ckeditor/ckeditor.js"></script>
-        <script>
-                CKEDITOR.replace( 'article-ckeditor' );
-        </script>
-    </body>
+</body>
 </html>
