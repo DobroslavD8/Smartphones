@@ -8,12 +8,14 @@
         <p>Phone model: {{$phone->model}}</p>
         <p>Manufacturer: {{$phone->manufacturer}}</p>
         <p>Production Year: {{$phone->productionYear}}</p>
+        <small style="color: green; ">- Added by {{$phone->user->name}}</small>
     </div>
+        <br>
         <a href="/phones/{{$phone->id}}/edit" class="btn btn-default">Edit</a>
     </div>
 
     {!!Form::open(['action' => ['PhonesController@destroy', $phone->id], 'method' => 'POST', 'class' => 'pull-right'])!!}
-    {{Form::hidden('_method', 'DELETE')}}
-    {{Form::submit('Delete', ['class' => 'btn btn-danger'])}}
+        {{Form::hidden('_method', 'DELETE')}}
+        {{Form::submit('Delete', ['class' => 'btn btn-danger'])}}
     {!!Form::close()!!}
 @endsection

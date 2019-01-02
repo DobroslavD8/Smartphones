@@ -26,14 +26,13 @@
                 <li><a href="/phones">Phones</a></li>
                 <li><a href="/modelslist">Models List</a></li>
                 <li><a href="/manufacturerlist">Manufacturer List</a></li>
-            </ul>
+
 
             <!-- Right Side Of Navbar -->
-            <ul class="navbar-nav ml-auto" style="padding-left: 570px;">
                 <!-- Authentication Links -->
                 @guest
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
+                        <a style="margin-left: 500px;" class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
                     </li>
                     @if (Route::has('register'))
                         <li class="nav-item">
@@ -41,25 +40,23 @@
                         </li>
                     @endif
                 @else
-                    <li class="nav-item dropdown">
-                        <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                            {{ Auth::user()->name }} <span class="caret"></span>
+
+       <a style="margin-right: 30px; margin-left: 150px; padding-top: 13px;" href="phones/create" class="btn btn-primary">Add new phone</a>
+
+                    <a href="/home" style="text-decoration: underline; color: white; margin-right: 30px; padding-top: 15px;">
+                        Logged as: {{ Auth::user()->name }}
+                    </a>
+                    <div style="padding-top: 13px;" class="btn btn-primary">
+                        <a  href="{{ route('logout') }}"
+                            onclick="event.preventDefault();
+                                                     document.getElementById('logout-form').submit();">
+                            {{ __('Logout') }}
                         </a>
 
-                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item" href="{{ route('logout') }}"
-                               onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();">
-                                {{ __('Logout') }}
-                            </a>
-
-                            <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                                @csrf
-                            </form>
-
-                            <a href="phones/create" class="btn btn-primary">Add new phone</a>
-                        </div>
-                    </li>
+                        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                            @csrf
+                        </form>
+                    </div>
                 @endguest
             </ul>
         </div>

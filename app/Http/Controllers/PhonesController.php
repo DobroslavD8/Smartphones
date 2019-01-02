@@ -51,6 +51,7 @@ class PhonesController extends Controller
         $phone->model = $request->input('model');
         $phone->manufacturer = $request->input('manufacturer');
         $phone->productionYear = $request->input('productionYear');
+        $phone->user_id = auth()->user()->id;
         $phone->save();
 
         return redirect('/phones')->with('success', 'Phone added!');
@@ -101,6 +102,7 @@ class PhonesController extends Controller
         $phone->model = $request->input('model');
         $phone->manufacturer = $request->input('manufacturer');
         $phone->productionYear = $request->input('productionYear');
+        $phone->user_id = auth()->user()->id;
         $phone->save();
 
         return redirect('/phones')->with('success', 'Phone updated!');

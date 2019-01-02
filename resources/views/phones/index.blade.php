@@ -10,14 +10,12 @@
 @extends('layouts.app')
 
 @section('content')
-    <br>
-    <br>
     <h1>Phones</h1>
     @if(count ($phones) > 0)
         @foreach($phones as $phone)
             <div class="well">
-            <h3><a href="/phones/{{$phone->id}}">{{$phone->name}}</a></h3>
-                <small>Added on: {{$phone->created_at}}</small>
+            <h2><a href="/phones/{{$phone->id}}">{{$phone->name}}</a></h2>
+                <small>{{$phone->user->name}} added it on {{$phone->created_at}}</small>
             </div>
         @endforeach
     @else

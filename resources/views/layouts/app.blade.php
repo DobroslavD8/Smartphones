@@ -21,7 +21,6 @@
 </head>
 <body>
     <div id="app">
-
         @include('nav.nav')
         <div class="container">
             @include('nav.msg')
