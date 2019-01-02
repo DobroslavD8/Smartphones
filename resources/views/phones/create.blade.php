@@ -12,7 +12,7 @@
 @section('content')
     <div style="padding-left: 2%; padding-right: 5%; padding-top: 3%;">
     <h1>Add phone</h1>
-    {!! Form::open(['action' => 'PhonesController@store', 'method' => 'POST']) !!}
+    {!! Form::open(['action' => 'PhonesController@store', 'method' => 'POST', 'enctype' => 'multipart/form-data']) !!}
         <div class="form-group">
             {{Form::label('name', 'Enter a name:')}}
             {{Form::text('name', '', ['class' => 'form-control', 'placeholder' => 'Name'])}}
@@ -32,6 +32,9 @@
         {{Form::label('productionYear', 'Enter the year of production:')}}
         {{Form::text('productionYear', '', ['class' => 'form-control', 'placeholder' => 'YOP'])}}
     </div>
+        <div class="form-group">
+            {{Form::file('phone_image')}}
+        </div>
     {{Form::submit('Add phone', ['class'=>'btn btn-primary'])}}
     {!! Form::close() !!}
     </div>

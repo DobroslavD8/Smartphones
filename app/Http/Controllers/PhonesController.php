@@ -8,6 +8,16 @@ use App\Phones;
 class PhonesController extends Controller
 {
     /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('auth', ['except' => ['index', 'show']]);
+    }
+
+    /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
@@ -44,7 +54,28 @@ class PhonesController extends Controller
            'name' => 'required',
            'model' => 'required',
            'manufacturer' => 'required',
+            'phone_image' => 'image|nullable|max:1024'
         ]);
+
+        // File handlind
+        if($request->hasFile('phone_image')){
+            $fileNameAndExtension = $request->file('phone_image')->getClientOriginalName();
+
+            //Get only filename
+            $fileName = pathinfo($fileNameAndExtension, PATHINFO_FILENAME);
+
+            //Get only extension
+            $extension = $request->file('phone_image')->getClientOriginalExtension();
+
+            //Filename to store
+            $fileNameStored = $fileName.'_'.time().'.'.$extension;
+
+            //Upload image
+            $path = $request->file('phone_image')->storeAs('public/phone_images', $fileNameStored);
+
+        } else{
+            $fileNameStored = 'default_image.jpg';
+        }
 
         $phone = new Phones;
         $phone->name = $request->input('name');
@@ -52,6 +83,7 @@ class PhonesController extends Controller
         $phone->manufacturer = $request->input('manufacturer');
         $phone->productionYear = $request->input('productionYear');
         $phone->user_id = auth()->user()->id;
+        $phone->phone_image = $fileNameStored;
         $phone->save();
 
         return redirect('/phones')->with('success', 'Phone added!');
@@ -79,6 +111,11 @@ class PhonesController extends Controller
     public function edit($id)
     {
         $phone = Phones::find($id);
+
+        //Protection against other people editing other people phones.
+        if(auth()->user()->id !==$phone->user_id) {
+            return redirect('/phones')->with('error', 'This page cant be displayed.');
+        }
         return view('phones.edit')->with('phone', $phone);
     }
 
@@ -97,12 +134,34 @@ class PhonesController extends Controller
             'manufacturer' => 'required',
         ]);
 
+        if($request->hasFile('phone_image')){
+            $fileNameAndExtension = $request->file('phone_image')->getClientOriginalName();
+
+            //Get only filename
+            $fileName = pathinfo($fileNameAndExtension, PATHINFO_FILENAME);
+
+            //Get only extension
+            $extension = $request->file('phone_image')->getClientOriginalExtension();
+
+            //Filename to store
+            $fileNameStored = $fileName.'_'.time().'.'.$extension;
+
+            //Upload image
+            $path = $request->file('phone_image')->storeAs('public/phone_images', $fileNameStored);
+
+        }
+
         $phone = Phones::find($id);
         $phone->name = $request->input('name');
         $phone->model = $request->input('model');
         $phone->manufacturer = $request->input('manufacturer');
         $phone->productionYear = $request->input('productionYear');
         $phone->user_id = auth()->user()->id;
+
+        //Saves the image if we don't choose a new one when update.
+        if($request->hasFile('phone_image')){
+            $phone->phone_image = $fileNameStored;
+        }
         $phone->save();
 
         return redirect('/phones')->with('success', 'Phone updated!');
@@ -117,8 +176,12 @@ class PhonesController extends Controller
     public function destroy($id)
     {
         $phone = Phones::find($id);
-        $phone->delete();
 
+        //Protection against other people editing other people phones.
+        if(auth()->user()->id !==$phone->user_id) {
+            return redirect('/phones')->with('error', 'This page cant be displayed.');
+        }
+        $phone->delete();
         return redirect('/phones')->with('success', 'Phone deleted!');
     }
 }
