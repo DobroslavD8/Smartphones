@@ -24,8 +24,8 @@
 
             <ul class="nav navbar-nav">
                 <li><a href="/phones">Phones</a></li>
-                <li><a href="/modellist">Models List</a></li>
-                <li><a href="/manufacturerlist">Manufacturers List</a></li>
+                <li><a href="/models">Models List</a></li>
+                <li><a href="/manufacturers">Manufacturers List</a></li>
 
 
             <!-- Right Side Of Navbar -->

@@ -15,7 +15,7 @@
             <div class="col-md-8">
                 <div class="card">
                     <div class="panel-body">
-                        <h3>Your phone models:</h3>
+                        <h3>Added smartphone models:</h3>
                         @if (is_array($phones) || is_object($phones))
                             <table class="table table-striped">
                                 <tr>
