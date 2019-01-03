@@ -21,3 +21,14 @@ Route::resource('phones', 'PhonesController');
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/manufacturerlist', function(){
+    return view('ManufacturerList', ['phones'=>'']);
+});
+
+Route::get('/modellist', function(){
+    return view('ModelList', ['phones'=>'']);
+});
+
+Route::get('/adminpanel', function(){
+    return view('adminPanel', ['phones'=>'']);
+});
