@@ -10,20 +10,23 @@
 @extends('layouts.app')
 
 @section('content')
-    <h1>Phones</h1>
-    <form action="/search" method="POST" role="search">
-        {{ csrf_field() }}
-        <div class="input-group">
-            <input type="text" class="form-control" name="q"
-                   placeholder="Search by YOP, model and manufacturer"> <span class="input-group-btn">
-            <button type="submit" class="btn btn-default">
-                <span class="glyphicon glyphicon-search"></span>
-            </button>
-        </span>
+    <div class="flex-center position-ref full-height">
+        <div class="Search-form">
+            <form class="" action="{{ URL::to('/search') }}" method="get">
+                {{ csrf_field() }}
+                <div class="input-group">
+                    <input type="text" name="query" class="form-control" placeholder="Search by YOP, model and manufacturer">
+                    <span class="input-group-btn">
+                        <button type="submit" name="button" class="btn btn-default">
+                            <span class="fa fa-search">Submit</span>
+                        </button>
+                    </span>
+                </div>
+            </form>
         </div>
-    </form>
-    </br>
-    @if(count ($phones) > 0)
+    </div>
+</br>
+    @if(count($phones) > 0)
         @foreach($phones as $phone)
             <div class="well">
                 <div class="row">
