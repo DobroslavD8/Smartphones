@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Phones;
+use Illuminate\Support\Facades\Input;
 
 class PhonesController extends Controller
 {
@@ -14,7 +15,7 @@ class PhonesController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth', ['except' => ['index', 'show']]);
+        $this->middleware('auth', ['except' => ['index', 'show', 'search']]);
     }
 
     /**
@@ -30,6 +31,24 @@ class PhonesController extends Controller
         $phones = Phones::all();
         return view('phones.index')->with('phones', $phones);
 
+    }
+
+    public function search()
+    {
+        $q = Input::get('query');
+        if ($q != "") {
+            $phones = Phones::where('productionYear', 'LIKE', '%' . $q . '%')
+                ->orWhere('model', 'LIKE', '%' . $q . '%')
+                ->orWhere('manufacturer', 'LIKE', '%' . $q . '%')->get()->all();
+            if (count($phones) > 0) {
+                return view('phones.index')->with(['phones' => $phones, 'query' => $q]);
+            } else {
+                return view('phones.index')->with(['message', "No phones found for this search!"]);
+            }
+        }
+        else{
+            return view('phones.index')->with(['message', "Your search is empty!"]);
+        }
     }
 
     /**

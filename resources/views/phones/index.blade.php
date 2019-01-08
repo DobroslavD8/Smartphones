@@ -26,7 +26,7 @@
         </div>
     </div>
 </br>
-    @if(count($phones) > 0)
+    @if(isset($phones))
         @foreach($phones as $phone)
             <div class="well">
                 <div class="row">

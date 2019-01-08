@@ -37,19 +37,4 @@ Route::get('/adminpanel', function(){
     return view('adminPanel', ['phones'=>'']);
 });
 
-Route::get('/search', function(){
-   $q = Input::get('query');
-   if ($q != "") {
-       $phones = Phones::where('productionYear', 'LIKE', '%' . $q . '%')
-           ->orWhere('model', 'LIKE', '%' . $q . '%')
-           ->orWhere('manufacturer', 'LIKE', '%' . $q . '%')->get()->all();
-       if (count($phones) > 0) {
-           return view('phones.index')->with(['phones' => $phones, 'query' => $q]);
-       } else {
-           return view('phone.index')->with(['message', "No phones found for this search!"]);
-       }
-   }
-   else{
-       return view('phones.index')->with(['message', "Your search is empty!"]);
-   }
-});
+Route::get('/search', 'PhonesController@search')->name('phones');
