@@ -73,7 +73,8 @@ class PhonesController extends Controller
            'name' => 'required',
            'model' => 'required',
            'manufacturer' => 'required',
-            'phone_image' => 'image|nullable|max:1024'
+            //'yearOfProduction' => 'required',
+            'phone_image' => 'image|nullable|mimes:jpeg,png,jpg,gif|max:1024'
         ]);
 
         // File handlind

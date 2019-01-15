@@ -33,8 +33,7 @@ Route::get('/models', function(){
     return view('ModelList', ['phones'=>$phones]);
 });
 
-Route::get('/adminpanel', function(){
-    return view('adminPanel', ['phones'=>'']);
-});
 
 Route::get('/search', 'PhonesController@search')->name('phones');
+
+
