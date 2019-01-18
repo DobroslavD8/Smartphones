@@ -36,4 +36,12 @@ Route::get('/models', function(){
 
 Route::get('/search', 'PhonesController@search')->name('phones');
 
+Route::group(['middleware' => ['auth', 'admin']], function() {
+    Route::get('/admin', function (){
+        $phones = DB::table('phones')->get();
+        $users = DB::table('users')->get();
+        return view('admin', ['phones'=>$phones], ['users'=>$users]);
+    });
+});
+
 

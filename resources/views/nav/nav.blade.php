@@ -41,12 +41,12 @@
                     @endif
                 @else
 
-       <a style="margin-right: 30px; margin-left: 150px; padding-top: 13px;" href="phones/create" class="btn btn-primary">Add new phone</a>
+       <a style="margin-right: 30px; margin-left: 50px; padding-top: 13px;" href="phones/create" class="btn btn-primary">Add new phone</a>
 
                     <a href="/home" style="text-decoration: underline; color: white; margin-right: 30px; padding-top: 15px;">
                         Logged as: {{ Auth::user()->name }}
                     </a>
-                    <div style="padding-top: 13px;" class="btn btn-primary">
+                    <div style="padding-top: 13px;" class="btn btn-danger">
                         <a  href="{{ route('logout') }}"
                             onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
@@ -57,6 +57,7 @@
                             @csrf
                         </form>
                     </div>
+                    <div style="margin-left: 10px; padding-top: 13px;" class="btn btn-warning"><a href="/admin">Admin Panel</a></li></div>
                 @endguest
             </ul>
         </div>
